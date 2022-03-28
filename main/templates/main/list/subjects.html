@@ -1,0 +1,42 @@
+{% extends 'main/base/base_table.html' %}
+
+{% block title %}Subjects{% endblock %}
+
+
+{% block add_button_text %}Subject{% endblock %}
+{% block add_item_title %}subject{% endblock %}
+{% block add_item_body %}
+    {% include 'main/forms/subject.html' %}
+{% endblock %}
+
+
+{% block columns %}
+    <th scope="col">Subject</th>
+    <th scope="col">Description</th>
+{% endblock %}
+
+
+{% block rows %}
+    {% for subject in subjects %}
+        <tr>
+            <td class="text-center">
+                {{ subject.id }}
+            </td>
+            <td>
+                <a href="{% url 'subject-detail' subject.id %}">
+                    {% if subject.title %}
+                        {{ subject.title }}
+                    {% else %}
+                        Subject id_{{ subject.id }}
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                {% if subject.description %}
+                    {{ subject.description }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,33 @@
+{% extends 'error/error_base.html' %}
+
+{% block title %}Error 400{% endblock %}
+
+
+{% block content %}
+
+    <main>
+        <div class="d-flex justify-content-center">
+            <img style="width: 50%"
+                 src="https://cdn.dribbble.com/users/26068/screenshots/14638411/media/5eb84509561a92d273b7715b02fea7ea.jpg">
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <h1 class="d-flex text-center">
+                400 Bad Request!
+            </h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <p class="mt-2 fs-4">
+                Your request resulted in an error.
+            </p>
+        </div>
+
+    </main>
+
+    <div class="row mt-4">
+        <div class="d-flex justify-content-center">
+            <a href="/" class="btn btn-outline-secondary">Home</a>
+        </div>
+    </div>
+
+{% endblock %}

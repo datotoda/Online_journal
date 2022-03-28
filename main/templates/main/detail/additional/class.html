@@ -1,0 +1,34 @@
+<div class="row mt-4 md-3 mx-auto">
+    <table class="table">
+        <tbody>
+        <th scope="col">Class</th>
+        <th scope="col">Description</th>
+        <th scope="col">Completed Course</th>
+        </tbody>
+        <tbody>
+        {% for cls in classes %}
+            <tr>
+                <td>
+                    <a href="{% url 'class-detail' cls.id %}">
+                        {% if cls.title %}
+                            {{ cls.title|capfirst }}
+                        {% else %}
+                            Class id_{{ cls.id }}
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    {% if cls.description %}
+                        {{ cls.description }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if cls.completed_course %}
+                        {{ cls.completed_course }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

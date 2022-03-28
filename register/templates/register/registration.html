@@ -1,0 +1,46 @@
+{% extends 'base/registration_base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+    <div style="display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    }">
+
+        <div style="display: table-cell; vertical-align: middle;">
+            <div class="d-flex justify-content-center  fs-1">
+                    Registration
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <div>
+                </div>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="d-flex justify-content-center vstack gap-3">
+                        <div class="mx-auto">
+                            <button type="submit" class="btn btn-success">
+                                Create Teacher Account
+                            </button>
+                        </div>
+                        <div class="mx-auto">
+                            Do you have an account? log in <a href="{% url 'login' %}">here</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

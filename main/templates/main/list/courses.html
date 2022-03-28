@@ -1,0 +1,41 @@
+{% extends 'main/base/base_table.html' %}
+
+{% block title %}Courses{% endblock %}
+
+{% block add_button_text %}Course{% endblock %}
+{% block add_item_title %}course{% endblock %}
+{% block add_item_body %}
+    {% include 'main/forms/course.html' %}
+{% endblock %}
+
+{% block columns %}
+    <th scope="col">Course</th>
+    <th scope="col">Class</th>
+    <th scope="col">Salary</th>
+    <th scope="col">Done</th>
+{% endblock %}
+
+
+{% block rows %}
+    {% for course in courses %}
+        <tr>
+            <td class="text-center">
+                {{ course.id }}
+            </td>
+            <td>
+                <a href="{% url 'course-detail' course.id %}">
+                    {{ course }}
+                </a>
+            </td>
+            <td>
+                {% if course.course_class %}
+                    <a href="{% url 'class-detail' course.course_class.id %}">
+                        {{ course.course_class }}
+                    </a>
+                {% endif %}
+            </td>
+            <td>{{ course.salary }}</td>
+            <td>{% if course.done %}✔{% else %}❌{% endif %}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

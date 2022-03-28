@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="hstack gap-3 mb-3">
+        <div>
+            <h2>
+                {% block table_title %}{% endblock %}
+            </h2>
+        </div>
+        <div class="ms-auto">
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#editModal">
+                Edit
+            </button>
+        </div>
+        <div class="vr"></div>
+        <div>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">
+                Delete
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row mt-3 mx-auto">
+        <table class="table table-bordered">
+            <tbody>
+            {% block rows %}
+            {% endblock %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-4 md-5">
+        {% block additional_content %}
+        {% endblock %}
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Delete Modal -->
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete this item
+                        {% block delete_item_title %}{% endblock %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure to delete {% block delete_item_body %}this item{% endblock %}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form action="delete/" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="update/" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit
+                            {% block edit_item_title %}Item{% endblock %}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% block edit_item_body %}item form{% endblock %}
+                    </div>
+                    <div class="modal-footer gap-2">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal">
+                            Delete
+                        </button>
+                        <div class="vr"></div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning">Save</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+

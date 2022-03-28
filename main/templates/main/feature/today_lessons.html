@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}{{ cls }}{% endblock %}
+{% block content %}
+    <div class="col-10 row mt-5 mx-auto">
+        <h2>
+            Today ({{ today_date }}) lessons
+        </h2>
+    </div>
+    {% if result_list %}
+
+        <div class="col-10 row mt-5 mx-auto" style="margin-top: 200px">
+            <table class="table table-bordered">
+                <tbody>
+                {% for cls, lessons in result_list %}
+                    <tr class="table-light">
+                        <th class="h3" scope="row" colspan="3">
+                            <a href="{% url 'class-detail' cls.id %}">
+                                {{ cls }}
+                            </a>
+                        </th>
+                    </tr>
+
+                    <tr class="h5">
+                        <th scope="row" style="width:30%">
+                            Time
+                        <th style="width:50%">
+                            Student
+                        </th>
+                        <th style="width:3%" class="text-center">
+                            Done
+                        </th>
+                    </tr>
+
+                    {% for lesson in lessons %}
+                        <tr>
+                            <th scope="row">
+                                <a class="link-secondary" href="{% url 'time-detail' lesson.time.id %}">
+                                    {{ lesson.time }}
+                                </a>
+
+                            </th>
+                            <td>
+                                {% if lesson.student %}
+                                    <a class="link-secondary" href="{% url 'student-detail' lesson.student.id %}">
+                                        {{ lesson.student }}
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+
+                                <form action="{% url 'lesson-done-today' lesson.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            {% if lesson.done %}
+                                            class="btn btn-outline-success"
+                                            name="lesson_undone"
+                                            {% else %}
+                                            class="btn btn-outline-danger"
+                                            name="lesson_done"
+                                            {% endif %}>
+                                        {% if lesson.done %}✔{% else %}❌{% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+
+        <div class="col-10 row mt-5 mx-auto">
+            <h3>You don't have lessons today!</h3>
+        </div>
+
+    {% endif %}
+
+
+{% endblock %}

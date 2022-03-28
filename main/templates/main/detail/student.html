@@ -1,0 +1,83 @@
+{% extends 'main/base/base_detail.html' %}
+
+<!-- Delete Modal -->
+{% block delete_item_title %}{{ student_obj }}{% endblock %}
+{% block delete_item_body %}{{ student_obj }}{% endblock %}
+
+<!-- Edit Modal -->
+{% block edit_item_title %}{{ student_obj }}{% endblock %}
+{% block edit_item_body %}
+    {% with form=edit_form %}
+        {% include 'main/forms/student.html' %}
+    {% endwith %}
+{% endblock %}
+
+
+{% block title %}{{ student_obj }}{% endblock %}
+
+{% block table_title %}Student{% endblock %}
+
+{% block rows %}
+    <tr>
+        <th scope="row" style="width:30%">First Name</th>
+        <td>
+            {% if student_obj.name %}
+                {{ student_obj.name }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Last Name</th>
+        <td>
+            {% if student_obj.last_name %}
+                {{ student_obj.last_name }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Parent</th>
+        <td>
+            {% if student_obj.parent %}
+                <a href="{% url 'parent-detail' student_obj.parent.id %}">
+                    {{ student_obj.parent }}
+                </a>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Phone Number</th>
+        <td>
+            {% if student_obj.phone_number %}
+                {{ student_obj.phone_number }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Facebook Profile</th>
+        <td>
+            {% if student_obj.fb_link %}
+                <a href="{{ student_obj.fb_link }}">
+                    {{ student_obj.fb_link }}
+                </a>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Discord Username</th>
+        <td>
+            {% if student_obj.discord_username %}
+                {{ student_obj.discord_username }}
+            {% endif %}
+        </td>
+    </tr>
+
+{% endblock %}
+
+{% block additional_content %}
+    <div>
+        <h3>Classes</h3>
+    </div>
+    {% with classes=student_obj.classes.all %}
+        {% include "main/detail/additional/class.html" %}
+    {% endwith %}
+{% endblock %}

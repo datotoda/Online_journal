@@ -1,0 +1,65 @@
+{% extends 'main/base/base_table.html' %}
+
+{% block title %}Classes{% endblock %}
+
+
+{% block add_button_text %}Class{% endblock %}
+{% block add_item_title %}class{% endblock %}
+{% block add_item_body %}
+    {% include 'main/forms/class.html' %}
+{% endblock %}
+
+
+{% block columns %}
+    <th scope="col">Class</th>
+    <th scope="col">Description</th>
+    <th scope="col">Completed Course</th>
+    <th scope="col">Journal</th>
+    <th scope="col">Scedule</th>
+    <th scope="col">Active</th>
+{% endblock %}
+
+
+{% block rows %}
+    {% for cls in classes %}
+        <tr>
+            <td class="text-center">
+                {{ cls.id }}
+            </td>
+            <td>
+                <a href="{% url 'class-detail' cls.id %}">
+                    {{ cls.title }}
+                </a>
+            </td>
+            <td>
+                {% if cls.description %}
+                    {{ cls.description }}
+                {% endif %}
+            </td>
+            <td>
+                {% if cls.completed_course %}
+                    {{ cls.completed_course }}
+                {% endif %}
+            </td>
+            <td>
+                {% if cls.courses.all %}
+                    <a href="{% url 'class-journal' cls.id %}">
+                        Class id_{{ cls.id }} Journal
+                    </a>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'class-schedule' cls.id %}">
+                    Schedule
+                </a>
+            </td>
+            <td>
+                {% if cls.active %}
+                    ✔
+                {% else %}
+                    ❌
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

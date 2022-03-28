@@ -1,0 +1,35 @@
+{% extends 'bootstrap_base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block head %}
+    {% if user.is_authenticated %}
+        <meta http-equiv='refresh' content='0; URL={% url 'root' %}'>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+
+
+    <div class="container" style="margin-top:100px">
+        {% block container %}
+
+            <div class="mt-5">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+
+        {% endblock %}
+    </div>
+
+{% endblock %}
+
+
+
+
+

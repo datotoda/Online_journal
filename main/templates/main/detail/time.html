@@ -1,0 +1,89 @@
+{% extends 'main/base/base_detail.html' %}
+
+<!-- Delete Modal -->
+{% block delete_item_title %}{{ time_obj }}{% endblock %}
+{% block delete_item_body %}{{ time_obj }}{% endblock %}
+
+<!-- Edit Modal -->
+{% block edit_item_title %}{{ time_obj }}{% endblock %}
+{% block edit_item_body %}
+    {% with form=edit_form %}
+        {% include 'main/forms/time.html' %}
+    {% endwith %}
+{% endblock %}
+
+
+{% block title %}{{ time_obj }}{% endblock %}
+
+{% block table_title %}Time{% endblock %}
+
+{% block rows %}
+    <tr>
+        <th scope="row" style="width:30%">Display Name</th>
+        <td>{{ time_obj }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Date</th>
+        <td>{{ time_obj.date }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Time</th>
+        <td>{{ time_obj.time }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Description</th>
+        <td>
+            {% if time_obj.description %}
+                {{ time_obj.description }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Course</th>
+        <td>
+            {% if time_obj.course %}
+                <a href="{% url 'course-detail' time_obj.course.id %}">
+                    {{ time_obj.course }}
+                </a>
+            {% endif %}
+        </td>
+    </tr>
+{% endblock %}
+
+
+{% block additional_content %}
+
+    <div class="hstack">
+        <div>
+            <h3>
+                Lessons
+            </h3>
+        </div>
+        <div class="ms-auto">
+            <form action="lessons_done/" method="post">
+                {% csrf_token %}
+
+                <div class="hstack gap-3">
+                    <div class="ms-auto">
+                        <button type="submit" class="btn btn-info" name="lessons_undone">
+                            Undone All Lessons
+                        </button>
+                    </div>
+                    <div class="vr"></div>
+                    <div>
+                        <button type="submit" class="btn btn-info" name="lessons_done">
+                            Done All Lessons
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    {% with lessons=time_obj.lessons.all %}
+        {% include "main/detail/additional/lesson.html" %}
+    {% endwith %}
+
+{% endblock %}

@@ -1,0 +1,53 @@
+<div class="row mt-4 md-3 mx-auto">
+    <table class="table">
+        <tbody>
+        <th scope="col">Lesson</th>
+        <th scope="col">Student</th>
+        <th scope="col">Time</th>
+        <th scope="col">Class</th>
+        <th scope="col">Course</th>
+        <th scope="col">Done</th>
+        </tbody>
+        <tbody>
+        {% for lesson in lessons %}
+            <tr>
+                <td>
+                    <a href="{% url 'lesson-detail' lesson.id %}">
+                        {{ lesson }}
+                    </a>
+                </td>
+                <td>
+                    {% if lesson.student %}
+                        <a href="{% url 'student-detail' lesson.student.id %}">
+                            {{ lesson.student }}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if lesson.time %}
+                        <a href="{% url 'time-detail' lesson.time.id %}">
+                            {{ lesson.time }}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if lesson.course_class %}
+                        <a href="{% url 'class-detail' lesson.course_class.id %}">
+                            {{ lesson.course_class }}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>{{ lesson.course.month_count }}</td>
+                <td>
+                    {% if lesson.done %}
+                        ✔
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+

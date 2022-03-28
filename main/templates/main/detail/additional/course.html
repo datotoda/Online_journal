@@ -1,0 +1,38 @@
+<div class="row mt-4 md-3 mx-auto">
+    <table class="table">
+        <tbody>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Done</th>
+        </tbody>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td>
+                    {% if course %}
+                        <a href="{% url 'course-detail' course.id %}">
+                            {{ course }}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if course.description %}
+                        {{ course.description }}
+                    {% endif %}
+                </td>
+                <td>
+                    {{ course.salary }}
+                </td>
+                <td>
+                    {% if course.done %}
+                        ✔
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

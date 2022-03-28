@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal"
+            data-bs-target="#addModal">
+        Add New {% block add_button_text %}{% endblock %}
+    </button>
+
+    <table class="table" id="list_table">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 3%">ID</th>
+            {% block columns %}
+            {% endblock %}
+        </tr>
+        </thead>
+        <tbody>
+        {% block rows %}
+
+        {% endblock %}
+        </tbody>
+    </table>
+
+
+    <!-- Add Modal -->
+
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="add/" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Add
+                            {% block add_item_title %}Item{% endblock %}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% block add_item_body %}item form{% endblock %}
+                    </div>
+                    <div class="modal-footer gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning">Save</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

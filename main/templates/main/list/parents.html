@@ -1,0 +1,46 @@
+{% extends 'main/base/base_table.html' %}
+
+{% block title %}Parents{% endblock %}
+
+
+{% block add_button_text %}Parent{% endblock %}
+{% block add_item_title %}parent{% endblock %}
+{% block add_item_body %}
+    {% include 'main/forms/parent.html' %}
+{% endblock %}
+
+
+{% block columns %}
+    <th scope="col">Name</th>
+    <th scope="col">Phone Number</th>
+    <th scope="col">Facebook Profile</th>
+{% endblock %}
+
+
+{% block rows %}
+    {% for parent in parents %}
+        <tr>
+            <td class="text-center">
+                {{ parent.id }}
+            </td>
+            <td>
+                <a href="{% url 'parent-detail' parent.id %}">
+                    {{ parent }}
+                </a>
+            </td>
+            <td>
+                {% if parent.phone_number %}
+                    {{ parent.phone_number }}
+                {% endif %}
+            </td>
+            <td>
+                {% if parent.fb_link %}
+                    <a href="{{ parent.fb_link }}">
+                        {{ parent.fb_link }}
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,56 @@
+{% extends 'main/base/base_table.html' %}
+
+{% block title %}Times{% endblock %}
+
+{% block add_button_text %}Time{% endblock %}
+{% block add_item_title %}time{% endblock %}
+{% block add_item_body %}
+    {% include 'main/forms/time.html' %}
+{% endblock %}
+
+{% block columns %}
+    <th scope="col" style="width: 20%">Time</th>
+    <th scope="col" style="width: 10%">Date</th>
+    <th scope="col" style="width: 10%">Lesson Time</th>
+    <th scope="col" style="width: 15%">Number of Students</th>
+    <th scope="col" style="width: 30%">Course</th>
+{% endblock %}
+
+
+{% block rows %}
+    {% for t in times %}
+        <tr>
+            <td class="text-center">
+                {{ t.id }}
+            </td>
+            <td>
+                <a href="{% url 'time-detail' t.id %}">
+                    {{ t }}
+                </a>
+            </td>
+            <td class="text-center">
+                {% if t.lesson_datetime %}
+                    {{ t.date }}
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if t.lesson_datetime %}
+                    {{ t.time }}
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if t.students_count %}
+                    {{ t.students_count }}
+                {% endif %}
+            </td>
+            <td>
+                {% if t.course %}
+                    <a href="{% url 'course-detail' t.course.id %}">
+                        {{ t.course }}
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

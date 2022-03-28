@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}{{ cls }}{% endblock %}
+{% block content %}
+
+    <div class="vstack">
+        <div>
+            <h3>
+                Journal
+            </h3>
+
+        </div>
+        <table class="table mt-3">
+            <tbody>
+            <tr>
+                <th>Class</th>
+                <td><a href="{% url 'class-detail' cls.id %}">{{ cls }}</a></td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td><a href="{% url 'subject-detail' cls.subject.id %}">{{ cls.subject }}</a></td>
+            </tr>
+            <tr>
+                <th>Completed course</th>
+                <td>{{ cls.completed_course }}</td>
+            </tr>
+            <tr>
+                <th>Students</th>
+                <td>{{ cls.students.all|length }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center" scope="col" style="height: 100px">Student</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for st, row in result_list %}
+                    <tr style="height: 70px">
+                        <td class="text-center">
+                            <a href="{% url 'student-detail' st.id %}">
+                                {{ st }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-10" style="overflow-x: auto;">
+            <table class="table" style="table-layout: fixed">
+                <thead>
+                <tr>
+                    {% for t in times_list %}
+                        <th class="text-center" scope="col" style="width: 100px; height: 100px">
+                            <div>
+                                <a href="{% url 'time-detail' t.id %}">
+                                    {{ t.date_for_jurnal }}
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{% url 'time-detail' t.id %}">
+                                    ({{ t.week_for_jurnal }})
+                                </a>
+                            </div>
+                        </th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for st, row in result_list %}
+                    <tr style="height: 70px">
+                        {% for lesson in row %}
+                            <td class="text-center">
+                                <form action="{% url 'lesson-done-journal' lesson.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            {% if lesson.done %}
+                                            class="btn btn-outline-success"
+                                            name="lesson_undone"
+                                            {% else %}
+                                            class="btn btn-outline-danger"
+                                            name="lesson_done"
+                                            {% endif %}>
+                                        {% if lesson.done %}✔{% else %}❌{% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

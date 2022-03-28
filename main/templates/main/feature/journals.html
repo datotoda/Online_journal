@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Journals{% endblock %}
+
+
+
+
+{% block content %}
+    <div class="row
+    row-cols-xl-3
+    row-cols-md-2
+    row-cols-1
+    g-5">
+
+        {% for cls in user.classes.all %}
+            {% if cls.active %}
+                {% if cls.courses.all %}
+
+                    <div class="col justify-content-center">
+                        <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title text-success">
+                                            {{ cls }} Journal
+                                    </h5>
+                                </div>
+                            <div class="card-body">
+
+                                <div class="card-text">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>Class</th>
+                                            <td><a href="{% url 'class-detail' cls.id %}">{{ cls }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>{{ cls.description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <td><a href="{% url 'subject-detail' cls.subject.id %}">{{ cls.subject }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Completed course</th>
+                                            <td>{{ cls.completed_course }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Students</th>
+                                            <td>{{ cls.students.all|length }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex">
+                                    <a href="{% url 'class-journal' cls.id %}" class="btn btn-primary ms-auto">Open journal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+

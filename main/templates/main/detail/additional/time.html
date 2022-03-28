@@ -1,0 +1,20 @@
+<div class="row mt-4 md-3 mx-auto">
+    <table class="table">
+        <tbody>
+        <th scope="col">DateTime</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Description</th>
+        </tbody>
+        <tbody>
+        {% for t in times %}
+            <tr>
+                <td><a href="{% url 'time-detail' t.id %}">{{ t }}</a></td>
+                <td>{{ t.date }}</td>
+                <td>{{ t.time }}</td>
+                <td>{% if t.description %}{{ t.description }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

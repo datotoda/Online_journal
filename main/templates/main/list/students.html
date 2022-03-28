@@ -1,0 +1,52 @@
+{% extends 'main/base/base_table.html' %}
+
+{% block title %}Students{% endblock %}
+
+
+{% block add_button_text %}Student{% endblock %}
+{% block add_item_title %}student{% endblock %}
+{% block add_item_body %}
+    {% include 'main/forms/student.html' %}
+{% endblock %}
+
+
+{% block columns %}
+    <th scope="col">Name</th>
+    <th scope="col">Phone Number</th>
+    <th scope="col">Facebook Profile</th>
+    <th scope="col">Discord Nickname</th>
+{% endblock %}
+
+
+{% block rows %}
+    {% for student in students %}
+        <tr>
+            <td class="text-center">
+                {{ student.id }}
+            </td>
+            <td>
+                <a href="{% url 'student-detail' student.id %}">
+                    {{ student }}
+                </a>
+            </td>
+            <td>
+                {% if student.phone_number %}
+                    {{ student.phone_number }}
+                {% endif %}
+            </td>
+            <td>
+                {% if student.fb_link %}
+                    <a href="{{ student.fb_link }}">
+                        {{ student.fb_link }}
+                    </a>
+                {% endif %}
+            </td>
+            <td>
+                {% if student.fb_link %}
+                    {{ student.discord_username }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

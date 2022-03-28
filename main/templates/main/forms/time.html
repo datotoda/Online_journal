@@ -1,0 +1,26 @@
+{% include 'main/forms/crispy_form.html' %}
+
+{#<div class="mb-3">#}
+{#    <label for="id_course" class="form-label">Course</label>#}
+{#    <select name="course" id="id_course" class="form-select">#}
+{#        {% for op in form.course %}#}
+{#            {{ op }}#}
+{#        {% endfor %}#}
+{#    </select>#}
+{#</div>#}
+{#<div class="mb-3">#}
+{#    <label for="id_lesson_datetime" class="form-label">Time</label>#}
+{#    <input type="text" class="form-control" id="id_lesson_datetime" name="lesson_datetime"#}
+{#           {% if form.lesson_datetime.value %}#}
+{#               {% with form.lesson_datetime.value as t %}#}
+{#                   value="{{ t|date:"Y-m-d" }} {{ t|time:"H:i" }}"#}
+{#               {% endwith %}#}
+{#           {% else %}#}
+{#               value="2022-10-20 12:00"#}
+{#           {% endif %}#}
+{#           required>#}
+{#</div>#}
+{#<div class="mb-3">#}
+{#    <label for="id_description" class="form-label">Description</label>#}
+{#    <textarea class="form-control" id="id_description" name="description" rows="4">{{ form.description.value }}</textarea>#}
+{#</div>#}
