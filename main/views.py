@@ -226,6 +226,11 @@ def today_lessons(request):
 
                 result_list[-1][-1].append(ls)
 
+    for _class, _times in result_list:
+        _times.sort(key=operator.attrgetter('time.lesson_datetime'))
+
+    result_list.sort(key=lambda cts: cts[1][0].time.lesson_datetime)
+
     context = {
         'result_list': result_list,
         'today_date': today_date_formated,
