@@ -1,5 +1,7 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
+from django.conf import settings
 
 from .views import handle_page_not_found, handle_bad_request, handle_forbidden, handle_server_error
 
@@ -12,6 +14,8 @@ urlpatterns = [
     path('403/', handle_forbidden),
     path('404/', handle_page_not_found),
     path('500/', handle_server_error),
+
+    re_path(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), serve, {'document_root': settings.STATIC_ROOT}),
 ]
 
 
