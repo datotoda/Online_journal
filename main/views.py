@@ -303,7 +303,7 @@ def times(request):
     obj_list = request.user.times.all()
 
     form = TimeForm()
-    form.fields['course'].queryset = request.user.courses.all()
+    form.fields['course'].queryset = request.user.courses.filter(done=False).all()
 
     return list_objs(request, obj_list, form, 'times')
 
@@ -312,7 +312,7 @@ def courses(request):
     obj_list = request.user.courses.all()
 
     form = CourseForm()
-    form.fields['course_class'].queryset = request.user.classes.all()
+    form.fields['course_class'].queryset = request.user.classes.filter(active=True).all()
 
     return list_objs(request, obj_list, form, 'courses')
 
