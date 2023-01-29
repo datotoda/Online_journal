@@ -143,7 +143,7 @@ def course_done(request, pk):
 def class_journal(request, pk):
     class_obj = request.user.classes.get(id=pk)
     students_list = class_obj.students.all()
-    courses_list = class_obj.courses.all()
+    courses_list = class_obj.courses.filter(done=False).all()
     times_list = []
     for course in courses_list:
         for a in course.agenda.all():
