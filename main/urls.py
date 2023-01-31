@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.classes, name='root'),
+    path('', views.root, name='root'),
 
     path('classes/', views.classes, name='classes'),
     path('parents/', views.parents, name='parents'),

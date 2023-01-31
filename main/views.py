@@ -259,17 +259,23 @@ def class_schedule(request, pk):
 # OBJECTS LIST
 
 
-def classes(request):
+def classes(request, filtered=False):
     if request.user.is_anonymous:
         return redirect('login')
 
     obj_list = request.user.classes.all()
+    if filtered:
+        obj_list = obj_list.filter(active=True)
 
     form = ClassForm()
     form.fields['students'].queryset = request.user.students
     form.fields['subject'].queryset = request.user.subjects
 
     return list_objs(request, obj_list, form, 'classes')
+
+
+def root(request):
+    return classes(request, filtered=True)
 
 
 def parents(request):
