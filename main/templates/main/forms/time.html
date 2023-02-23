@@ -1,5 +1,42 @@
 {% include 'main/forms/crispy_form.html' %}
 
+<script>
+    setTimeout(() => {
+        const element = document.getElementById("id_lesson_datetime");
+
+        if (window.location.pathname === '/times/') {
+            date = new Date(new Date(element.value).getTime() + 1000*60*60*5);
+            date.setMinutes(0, 0);
+        } else {
+            date = new Date(new Date(element.value).getTime());
+        }
+
+        const datestr = date.toISOString();
+
+        element.type = "datetime-local";
+        element.removeAttribute('value');
+        element.value = datestr.slice(0, datestr.indexOf('T')) + ' ' + date.toLocaleTimeString('it-IT');
+
+
+        form = element.parentElement.parentElement.parentElement;
+        if (form.tagName !== 'FORM'){
+            forms = document.getElementsByTagName('form');
+            form = forms[forms.length - 1];
+        }
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            element.type = "text";
+            if (element.value.split(":").length - 1 === 1) {
+                element.value = element.value.replace('T', ' ') + ':00';
+            }
+
+            form.submit();
+        });
+    }, 500);
+</script>
+
 {#<div class="mb-3">#}
 {#    <label for="id_course" class="form-label">Course</label>#}
 {#    <select name="course" id="id_course" class="form-select">#}
